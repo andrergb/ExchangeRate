@@ -29,24 +29,24 @@ public class AsyncTaskFixerIO {
 
         @Override
         protected JSONObject doInBackground(String... args) {
-            return new JSONParser().getJSONFromUrl(Preferences.API_URL_LATEST_BASE + currentBase);
+            return new JSONParser().getJSONFromUrl(Constants.API_URL_LATEST_BASE + currentBase);
         }
 
         @Override
         protected void onPostExecute(JSONObject json) {
             try {
-                SharedPreferences sharedPreferences = ctx.getSharedPreferences(Preferences.PREF_NAME_EXCHANGE_RATE, Context.MODE_PRIVATE);
+                SharedPreferences sharedPreferences = ctx.getSharedPreferences(Constants.PREF_NAME_EXCHANGE_RATE, Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPreferences.edit();
 
-                editor.putString(Preferences.PREF_BASE, json.get(Preferences.API_BASE).toString());
-                editor.putString(Preferences.PREF_DATE, json.get(Preferences.API_DATE).toString());
+                editor.putString(Constants.PREF_BASE, json.get(Constants.API_BASE).toString());
+                editor.putString(Constants.PREF_DATE, json.get(Constants.API_DATE).toString());
 
                 //rates
-                for (int i = 0; i < Preferences.API_ALL_RATES.length; i++)
-                    if (!Preferences.API_ALL_RATES[i].equalsIgnoreCase(currentBase))
-                        editor.putFloat(Preferences.PREF_ALL_RATES[i], (float) json.getJSONObject(Preferences.API_RATES).getDouble(Preferences.API_ALL_RATES[i]));
+                for (int i = 0; i < Constants.API_ALL_RATES.length; i++)
+                    if (!Constants.API_ALL_RATES[i].equalsIgnoreCase(currentBase))
+                        editor.putFloat(Constants.PREF_ALL_RATES[i], (float) json.getJSONObject(Constants.API_RATES).getDouble(Constants.API_ALL_RATES[i]));
                     else
-                        editor.putFloat(Preferences.PREF_ALL_RATES[i], Preferences.DEFAULT_RATE);
+                        editor.putFloat(Constants.PREF_ALL_RATES[i], Constants.DEFAULT_RATE);
 
                 editor.apply();
 

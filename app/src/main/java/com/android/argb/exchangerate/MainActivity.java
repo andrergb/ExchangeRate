@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceOnTaskCo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        sharedPreferences = getSharedPreferences(Preferences.PREF_NAME_EXCHANGE_RATE, 0);
+        sharedPreferences = getSharedPreferences(Constants.PREF_NAME_EXCHANGE_RATE, 0);
 
         currentBase = Utils.getLastBase(MainActivity.this);
 
@@ -67,16 +67,16 @@ public class MainActivity extends AppCompatActivity implements InterfaceOnTaskCo
     }
 
     private void showPopupCurrencyList(View v) {
-        String[] items = new String[Preferences.CURRENCY_NAME_ALL_RATES.length];
+        String[] items = new String[Constants.CURRENCY_NAME_ALL_RATES.length];
         for (int i = 0; i < items.length; i++)
-            items[i] = Preferences.CURRENCY_NAME_ALL_RATES[i] + " (" + Preferences.API_ALL_RATES[i] + ")";
+            items[i] = Constants.CURRENCY_NAME_ALL_RATES[i] + " (" + Constants.API_ALL_RATES[i] + ")";
 
         new AlertDialog.Builder(this)
                 .setSingleChoiceItems(items, 0, null)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         dialog.dismiss();
-                        currentBase = Preferences.API_ALL_RATES[((AlertDialog) dialog).getListView().getCheckedItemPosition()];
+                        currentBase = Constants.API_ALL_RATES[((AlertDialog) dialog).getListView().getCheckedItemPosition()];
                         if (Utils.shouldBeUpdate(MainActivity.this, currentBase))
                             new AsyncTaskFixerIO(MainActivity.this, currentBase, MainActivity.this);
                     }
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements InterfaceOnTaskCo
 
         currencyList.setAdapter(new AdapterCurrencyList(this, Utils.getCurrencyList(this)));
 
-        bottomInfo.setText(String.format(getString(R.string.updated_on), sharedPreferences.getString(Preferences.PREF_DATE, Preferences.DEFAULT_DATE)));
+        bottomInfo.setText(String.format(getString(R.string.updated_on), sharedPreferences.getString(Constants.PREF_DATE, Constants.DEFAULT_DATE)));
 
         Utils.saveLastBase(currentBase, MainActivity.this);
     }

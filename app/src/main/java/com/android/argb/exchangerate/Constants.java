@@ -1,6 +1,6 @@
 package com.android.argb.exchangerate;
 
-public class Preferences {
+public class Constants {
 
     public static String DEFAULT_DATE = "1970-01-01";
     public static float DEFAULT_RATE = 1;
