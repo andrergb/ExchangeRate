@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ExchangeRate</string>
+    <string name="space">\u0020</string>
+    <string name="last_update">Updated on 1970/jan/1</string>
+    <string name="updated_on">Updated on %s</string>
+</resources>
